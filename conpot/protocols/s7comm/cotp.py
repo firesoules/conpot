@@ -133,7 +133,10 @@ class COTP_ConnectionConfirm(COTPConnectionPacket):
         super(COTPConnectionPacket, self).__init__()
 
     def assemble(self):
-        return pack('!HHBBBHBBH', self.dst_ref, self.src_ref, self.opt_field,
+        return pack('!HHBBBBBBHBBH', self.dst_ref, self.src_ref, self.opt_field,
+                    0xc0,
+                    0x01,
+                    0x0a,
                     0xc1,  # param code:   src-tsap
                     0x02,  # param length: 2 bytes
                     self.src_tsap,
