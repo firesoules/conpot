@@ -12,6 +12,7 @@ RUN chown conpot:conpot -R /opt/conpot
 
 # Install Python requirements
 USER conpot
+RUN mkdir /home/conpot/.pip
 RUN echo "[global]" > /home/conpot/.pip/pip.conf && \
     echo "index-url = https://pypi.tuna.tsinghua.edu.cn/simple" >> /home/conpot/.pip/pip.conf
 WORKDIR /opt/conpot
