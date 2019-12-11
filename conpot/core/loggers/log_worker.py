@@ -67,7 +67,7 @@ class LogWorker(object):
         if config.getboolean('json', 'enabled'):
             todaydate = datetime.now()
             todaystr = todaydate.strftime('%Y-%m-%d')
-            filename = config.get('json', 'filename') + todaystr
+            filename = config.get('json', 'filename') + '.' + todaystr
             sensorid = config.get('common', 'sensorid')
             self.json_logger = JsonLogger(filename, sensorid, public_ip)
 
