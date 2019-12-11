@@ -65,6 +65,8 @@ class LogWorker(object):
         #     self.mysql_logger = MySQLlogger(host, port, db, username, passphrase, logdevice, logsocket, sensorid)
 
         if config.getboolean('json', 'enabled'):
+            today = datetime.date.today()
+            todaystr = today.strftime('%Y-%m-%d')
             filename = config.get('json', 'filename')
             sensorid = config.get('common', 'sensorid')
             self.json_logger = JsonLogger(filename, sensorid, public_ip)
