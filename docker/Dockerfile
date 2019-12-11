@@ -1,6 +1,7 @@
 FROM alpine:3.8 as conpot-builder
 
 # Install dependencies
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache ipmitool tcpdump git python3-dev build-base wget py-cffi libxslt-dev openssl-dev libffi-dev
 
 # Copy the app from the host folder (probably a cloned repo) to the container
@@ -11,6 +12,8 @@ RUN chown conpot:conpot -R /opt/conpot
 
 # Install Python requirements
 USER conpot
+RUN echo "[global]" > /home/conpot/.pip/pip.conf && \
+    echo "index-url = https://pypi.tuna.tsinghua.edu.cn/simple" >> /home/conpot/.pip/pip.conf
 WORKDIR /opt/conpot
 RUN pip3 install --user --no-cache-dir -U pip==18.1 setuptools
 RUN pip3 install --user --no-cache-dir coverage
@@ -31,7 +34,7 @@ FROM alpine:3.8
 
 USER root
 
-
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk add --no-cache ipmitool ca-certificates tcpdump python3 wget py-cffi libxslt openssl
 
 RUN adduser -s /bin/ash -D conpot
